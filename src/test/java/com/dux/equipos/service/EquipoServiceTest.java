@@ -37,7 +37,7 @@ public class EquipoServiceTest {
     @Mock
     private LigaService ligaService;
 
-    private final String MENSAJE_SOLICITUD_INVALIDA = "La solicitud es invalida";
+    private final String MENSAJE_SOLICITUD_INVALIDA = "La solicitud es inválida";
 
     @BeforeEach
     public void setUp() {
@@ -52,7 +52,7 @@ public class EquipoServiceTest {
     @BeforeAll
     public static void setUpBefore() {
         liga = Liga.builder().id(1L).nombre("Liga Test").build();
-        pais = Pais.builder().id(1L).nombre("Pais Test").build();
+        pais = Pais.builder().id(1L).nombre("País Test").build();
         equipo1 = Equipo.builder().id(1L).nombre("test1").liga(liga).pais(pais).build();
         equipo2 = Equipo.builder().id(2L).nombre("test2").liga(liga).pais(pais).build();
     }
@@ -139,7 +139,7 @@ public class EquipoServiceTest {
 
     @Test
     public void guardar_conEquipoValido_devuelveEquipoGuardado() {
-        CrearEquipoRequest crearEquipoRequest = new CrearEquipoRequest("test1", "Liga Test", "Pais Test");
+        CrearEquipoRequest crearEquipoRequest = new CrearEquipoRequest("test1", "Liga Test", "País Test");
 
         Equipo equipo = Equipo.builder().id(1L).nombre(crearEquipoRequest.nombre()).liga(liga).pais(pais).build();
 
@@ -157,7 +157,7 @@ public class EquipoServiceTest {
 
     @Test
     public void guardar_conNombreDeEquipoNull_lanzaExcepcion() {
-        CrearEquipoRequest crearEquipoRequest = new CrearEquipoRequest(null, "Liga Test", "Pais Test");
+        CrearEquipoRequest crearEquipoRequest = new CrearEquipoRequest(null, "Liga Test", "País Test");
 
         assertThatThrownBy(() -> equipoService.guardar(crearEquipoRequest))
                 .isInstanceOf(IllegalArgumentException.class)
@@ -166,7 +166,7 @@ public class EquipoServiceTest {
 
     @Test
     public void guardar_conNombreDeEquipoVacio_lanzaExcepcion() {
-        CrearEquipoRequest crearEquipoRequest = new CrearEquipoRequest("", "Liga Test", "Pais Test");
+        CrearEquipoRequest crearEquipoRequest = new CrearEquipoRequest("", "Liga Test", "País Test");
 
         assertThatThrownBy(() -> equipoService.guardar(crearEquipoRequest))
                 .isInstanceOf(IllegalArgumentException.class)
@@ -175,7 +175,7 @@ public class EquipoServiceTest {
 
     @Test
     public void guardar_conNombreDeEquipoExistente_lanzaExcepcion() {
-        CrearEquipoRequest crearEquipoRequest = new CrearEquipoRequest("test1", "Liga Test", "Pais Test");
+        CrearEquipoRequest crearEquipoRequest = new CrearEquipoRequest("test1", "Liga Test", "País Test");
 
         when(equipoRepository.existsByNombreIgnoreCase(crearEquipoRequest.nombre())).thenReturn(true);
 
@@ -186,7 +186,7 @@ public class EquipoServiceTest {
 
     @Test
     public void guardar_conEquipoValidoYNuevaLiga_devuelveEquipoGuardadoConNuevaLiga() {
-        CrearEquipoRequest crearEquipoRequest = new CrearEquipoRequest("test1", "Liga Nueva", "Pais Test");
+        CrearEquipoRequest crearEquipoRequest = new CrearEquipoRequest("test1", "Liga Nueva", "País Test");
 
         Liga ligaNueva = Liga.builder().nombre(crearEquipoRequest.liga()).build();
         Equipo equipo = Equipo.builder().id(1L).nombre(crearEquipoRequest.nombre()).liga(ligaNueva).pais(pais).build();
@@ -205,7 +205,7 @@ public class EquipoServiceTest {
 
     @Test
     public void guardar_conEquipoValidoYNuevoPais_devuelveEquipoGuardadoConNuevoPais() {
-        CrearEquipoRequest crearEquipoRequest = new CrearEquipoRequest("test1", "Liga Test", "Pais Nuevo");
+        CrearEquipoRequest crearEquipoRequest = new CrearEquipoRequest("test1", "Liga Test", "País Nuevo");
 
         Pais paisNuevo = Pais.builder().nombre(crearEquipoRequest.pais()).build();
         Equipo equipo = Equipo.builder().id(1L).nombre(crearEquipoRequest.nombre()).liga(liga).pais(paisNuevo).build();
@@ -224,7 +224,7 @@ public class EquipoServiceTest {
 
     @Test
     public void actualizar_conEquipoNuevoValido_devuelveEquipoActualizado() {
-        CrearEquipoRequest crearEquipoRequest = new CrearEquipoRequest("testActualiza", "Liga Test", "Pais Nuevo");
+        CrearEquipoRequest crearEquipoRequest = new CrearEquipoRequest("testActualiza", "Liga Test", "País Nuevo");
         Long idEquipoAActualizar = 1L;
         Equipo equipoActualizado = Equipo.builder().id(idEquipoAActualizar).nombre(crearEquipoRequest.nombre()).liga(liga).pais(pais).build();
 
@@ -245,7 +245,7 @@ public class EquipoServiceTest {
     @Test
     public void actualizar_conNombreDeEquipoNull_lanzaExcepcion() {
         Long idEquipoAActualizar = 1L;
-        CrearEquipoRequest crearEquipoRequest = new CrearEquipoRequest(null, "Liga Test", "Pais Test");
+        CrearEquipoRequest crearEquipoRequest = new CrearEquipoRequest(null, "Liga Test", "País Test");
         when(equipoRepository.findById(idEquipoAActualizar)).thenReturn(Optional.ofNullable(equipo1));
         assertThatThrownBy(() -> equipoService.actualizar(idEquipoAActualizar, crearEquipoRequest))
                 .isInstanceOf(IllegalArgumentException.class)
@@ -255,7 +255,7 @@ public class EquipoServiceTest {
     @Test
     public void actualizar_conNombreDeEquipoVacio_lanzaExcepcion() {
         Long idEquipoAActualizar = 1L;
-        CrearEquipoRequest crearEquipoRequest = new CrearEquipoRequest("", "Liga Test", "Pais Test");
+        CrearEquipoRequest crearEquipoRequest = new CrearEquipoRequest("", "Liga Test", "País Test");
         when(equipoRepository.findById(idEquipoAActualizar)).thenReturn(Optional.ofNullable(equipo1));
         assertThatThrownBy(() -> equipoService.actualizar(idEquipoAActualizar, crearEquipoRequest))
                 .isInstanceOf(IllegalArgumentException.class)
@@ -265,7 +265,7 @@ public class EquipoServiceTest {
     @Test
     public void actualizar_conNombreDeEquipoExistentePeroDistintoAlNombreEquipoAActualizar_lanzaExcepcion() {
         Long idEquipoAActualizar = 1L;
-        CrearEquipoRequest crearEquipoRequest = new CrearEquipoRequest("test2", "Liga Test", "Pais Test");
+        CrearEquipoRequest crearEquipoRequest = new CrearEquipoRequest("test2", "Liga Test", "País Test");
         when(equipoRepository.findById(idEquipoAActualizar)).thenReturn(Optional.ofNullable(equipo1));
         when(equipoRepository.existsByNombreIgnoreCase(crearEquipoRequest.nombre())).thenReturn(true);
 
@@ -276,7 +276,7 @@ public class EquipoServiceTest {
 
     @Test
     public void actualizar_conNombreEquipoIgualAlNombreEquipoAActualizar_devuelveEquipoActualizado() {
-        CrearEquipoRequest crearEquipoRequest = new CrearEquipoRequest("test1", "Liga Test2", "Pais Nuevo");
+        CrearEquipoRequest crearEquipoRequest = new CrearEquipoRequest("test1", "Liga Test2", "País Nuevo");
         Long idEquipoAActualizar = 1L;
         Equipo equipoActualizado = Equipo.builder().id(idEquipoAActualizar).nombre(crearEquipoRequest.nombre()).liga(liga).pais(pais).build();
 
@@ -298,7 +298,7 @@ public class EquipoServiceTest {
     public void actualizar_conEquipoValidoYNuevaLiga_devuelveEquipoGuardadoConNuevaLiga() {
 
         Long idEquipoAActualizar = 1L;
-        CrearEquipoRequest crearEquipoRequest = new CrearEquipoRequest("test1", "Liga Nueva", "Pais Test");
+        CrearEquipoRequest crearEquipoRequest = new CrearEquipoRequest("test1", "Liga Nueva", "País Test");
 
         Liga ligaNueva = Liga.builder().nombre(crearEquipoRequest.liga()).build();
         Equipo equipo = Equipo.builder().id(1L).nombre(crearEquipoRequest.nombre()).liga(ligaNueva).pais(pais).build();
@@ -319,7 +319,7 @@ public class EquipoServiceTest {
     @Test
     public void actualizar_conEquipoValidoYNuevoPais_devuelveEquipoGuardadoConNuevoPais() {
         Long idEquipoAActualizar = 1L;
-        CrearEquipoRequest crearEquipoRequest = new CrearEquipoRequest("test1", "Liga Test", "Pais Nuevo");
+        CrearEquipoRequest crearEquipoRequest = new CrearEquipoRequest("test1", "Liga Test", "País Nuevo");
 
         Pais paisNuevo = Pais.builder().nombre(crearEquipoRequest.pais()).build();
         Equipo equipo = Equipo.builder().id(1L).nombre(crearEquipoRequest.nombre()).liga(liga).pais(paisNuevo).build();

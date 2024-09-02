@@ -23,7 +23,7 @@ public class EquipoService implements IEquipoService {
     private IPaisService paisService;
     private EquipoRepository equipoRepository;
 
-    private final String MENSAJE_SOLICITUD_INVALIDA = "La solicitud es invalida";
+    private final String MENSAJE_SOLICITUD_INVALIDA = "La solicitud es inválida";
     private final String MENSAJE_EQUIPO_NO_ENCONTRADO = "Equipo no encontrado";
 
 

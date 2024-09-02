@@ -13,7 +13,7 @@ public class PaisService implements IPaisService {
 
     private final PaisRepository paisRepository;
 
-    private final String MENSAJE_SOLICITUD_INVALIDA = "La solicitud es invalida";
+    private final String MENSAJE_SOLICITUD_INVALIDA = "La solicitud es inválida";
 
     @Override
     public Pais obtenerPorNombre(String nombre) {
