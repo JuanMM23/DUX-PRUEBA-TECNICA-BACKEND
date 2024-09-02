@@ -1,6 +1,4 @@
 package com.dux.equipos.controller.dto;
 
-import jakarta.validation.constraints.NotBlank;
-
-public record AuthLoginRequest(@NotBlank String username, @NotBlank String password) {
+public record AuthLoginRequest(String username, String password) {
 }

@@ -32,7 +32,7 @@ public class UserDetailService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         UserEntity user = userRepository.findByUsername(username)
-                .orElseThrow(() -> new UsernameNotFoundException("Invalid username or password"));
+                .orElseThrow(() -> new BadCredentialsException("Credenciales inválidas"));
 
         List<SimpleGrantedAuthority> authorityList = new ArrayList<>();
 
@@ -48,6 +48,9 @@ public class UserDetailService implements UserDetailsService {
 
     public AuthResponse login(AuthLoginRequest authLoginRequest) {
         String username = authLoginRequest.username();
+        if (authLoginRequest.password() == null || authLoginRequest.password().isBlank()) {
+            throw new BadCredentialsException("Credenciales inválidas");
+        }
         String password = authLoginRequest.password();
 
         Authentication authentication = this.authenticate(username, password);
@@ -62,11 +65,11 @@ public class UserDetailService implements UserDetailsService {
         UserDetails user = this.loadUserByUsername(username);
 
         if (user == null) {
-            throw new BadCredentialsException("Invalid username or password");
+            throw new BadCredentialsException("Credenciales inválidas");
         }
 
         if (!passwordEncoder.matches(password, user.getPassword())) {
-            throw new BadCredentialsException("Invalid username or password");
+            throw new BadCredentialsException("Credenciales inválidas");
         }
 
         return new UsernamePasswordAuthenticationToken(username, user.getPassword(), user.getAuthorities());

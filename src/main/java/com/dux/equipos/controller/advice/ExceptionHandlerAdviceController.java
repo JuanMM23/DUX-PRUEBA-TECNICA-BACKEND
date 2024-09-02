@@ -4,6 +4,7 @@ import com.dux.equipos.controller.dto.ExceptionResponse;
 import org.springframework.dao.DataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -26,6 +27,13 @@ public class ExceptionHandlerAdviceController {
     @ResponseBody
     public ResponseEntity<ExceptionResponse> handleConstraintViolationException(IllegalArgumentException ex) {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ExceptionResponse(ex.getMessage(), HttpStatus.BAD_REQUEST.value()));
+    }
+
+    @ExceptionHandler(BadCredentialsException.class)
+    @ResponseStatus(HttpStatus.UNAUTHORIZED)
+    @ResponseBody
+    public ResponseEntity<ExceptionResponse> handleBadCredentialsException(Exception ex) {
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(new ExceptionResponse(ex.getMessage(), HttpStatus.UNAUTHORIZED.value()));
     }
 
     @ExceptionHandler(DataAccessException.class)
