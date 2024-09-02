@@ -41,6 +41,8 @@ public class SecurityConfig {
                 .authorizeHttpRequests(http -> {
                     http.requestMatchers(HttpMethod.POST, "/auth/**").permitAll();
                     http.requestMatchers(HttpMethod.GET, "/api/v1/equipos/**").hasRole("USER");
+                    http.requestMatchers(HttpMethod.POST, "/api/v1/equipos").hasRole("USER");
+                    http.requestMatchers(HttpMethod.PUT, "/api/v1/equipos/**").hasRole("USER");
                     http.requestMatchers(HttpMethod.DELETE, "/api/v1/equipos/**").hasRole("USER");
                     http.anyRequest().denyAll();
                 })

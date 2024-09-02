@@ -1,5 +1,6 @@
 package com.dux.equipos.controller;
 
+import com.dux.equipos.controller.dto.CrearEquipoRequest;
 import com.dux.equipos.controller.dto.EquipoResponse;
 import com.dux.equipos.service.IEquipoService;
 import lombok.AllArgsConstructor;
@@ -29,6 +30,16 @@ public class EquipoRestController {
     @GetMapping("/buscar")
     public ResponseEntity<List<EquipoResponse>> obtenerTodosPorNombre(@RequestParam String nombre) {
         return new ResponseEntity<>(equipoService.obtenerPorNombre(nombre), HttpStatus.OK);
+    }
+
+    @PostMapping
+    public ResponseEntity<EquipoResponse> guardar(@RequestBody CrearEquipoRequest equipoRequest) {
+        return new ResponseEntity<>(equipoService.guardar(equipoRequest), HttpStatus.CREATED);
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<EquipoResponse> actualizar(@PathVariable("id") Long id, @RequestBody CrearEquipoRequest equipoRequest) {
+        return new ResponseEntity<>(equipoService.actualizar(id, equipoRequest), HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")
