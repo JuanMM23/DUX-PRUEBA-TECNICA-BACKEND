@@ -44,6 +44,8 @@ public class SecurityConfig {
                     http.requestMatchers(HttpMethod.POST, "/api/v1/equipos").hasRole("USER");
                     http.requestMatchers(HttpMethod.PUT, "/api/v1/equipos/**").hasRole("USER");
                     http.requestMatchers(HttpMethod.DELETE, "/api/v1/equipos/**").hasRole("USER");
+                    http.requestMatchers("/v3/api-docs/**").permitAll();
+                    http.requestMatchers("/swagger-ui/**").permitAll();
                     http.anyRequest().denyAll();
                 })
                 .addFilterBefore(new JwtTokenValidator(jwtUtils), BasicAuthenticationFilter.class)
