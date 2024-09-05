@@ -8,5 +8,4 @@
 ## Utiliza base de datos en memoria
 ## Extras:
 - Los datos necesarios para poblar la base de datos se encuentran dentro del proyecto en el archivo [data.sql] y se crean automaticamente al levantar el mismo.
-- Colección de postman: [https://api.postman.com/collections/31525030-a01ea306-16d2-4714-9c1c-d792c2eb0ddd?access_key=PMAT-01J6V7MNV6WR1915XP9GKTBW0A]
 - Una vez levantado el proyecto podes acceder a la interfaz de Swagger mediante el siguiente link: http://localhost:8080/swagger-ui/index.html
